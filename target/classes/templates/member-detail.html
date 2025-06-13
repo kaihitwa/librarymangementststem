@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>All Members</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 24px;
+            max-width: 900px;
+            margin: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+        }
+        th { background-color: #f0f0f0; }
+        a.button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 14px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+        a.button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>All Members</h1>
+
+<a href="/member/new" class="button">Add New Member</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Join Date</th>
+        <th>Issued Books</th>
+        <th>Active</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member : ${members}">
+        <td><a th:href="@{'/member/' + ${member.id}}" th:text="${member.name}">Member Name</a></td>
+        <td th:text="${member.joinDate}">2023-01-01</td>
+        <td th:text="${member.issuedBooks}">0</td>
+        <td th:text="${member.active}? 'Yes' : 'No'">Yes</td>
+        <td>
+            <a th:href="@{'/member/edit/' + ${member.id}}">Edit</a> |
+            <a th:href="@{'/member/delete/' + ${member.id}}" onclick="return confirm('Delete this member?');">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/members/active">View Active Members</a>
+
+</body>
+</html>
